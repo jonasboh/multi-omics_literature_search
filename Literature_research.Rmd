@@ -1,0 +1,83 @@
+---
+title: "Literature research Review"
+author: "Jonas Bohn"
+date: "12/16/2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, tidy.opts=list(width.cutoff=80), tidy=TRUE)
+```
+
+# Literature search
+
+This document provides a systematic literature search for identification of papaers dealing with multi-omics data integration.
+The systematic Literature research is based on applying Entrez Direct searches on Pubmed literature.
+See the documentation of this tool: https://www.ncbi.nlm.nih.gov/books/NBK179288/.
+
+The following sections describe the executed commands and strategy of filtering.
+Please note that the integration of multi-omics data is a growing field and the output by imitation will look different in number as publications are added in the future. This search has been performed on the 10th of November 2020. The systematic approach starts with a more general search including observed syntax and synonyms which enables further additional filtering.
+
+
+## General Literature search
+
+First, we evaluated the a base dataset considering different phrasing and synonyms.
+We observed different phrasing for multi-omics as multi omics or multiomics in abstracts and titles of publication. 
+This search resulted in 755 papers. This dataset is the basement for further filtering and therefore detailed classification into one of the following five classes. The filtering results in Pubmed IDs for publications in the general set which can be classified by used criteria.
+
+```{bash general entrez search, eval=FALSE}
+# This run gives you a summary of literature in english and provides the Pubmed ID, title, and publication date
+esearch -db pubmed -query "((multi AND omics) OR multi-omics OR multiomics OR (multivariate AND genomic) OR (Algorithms AND integrative AND Cluster AND Analysis)) AND data AND integration" | efilter -query "english [LANG]" | efetch -format docsum | xtract -pattern DocumentSummary -element Id Title PubDate 
+```
+
+
+## Filtering for Supervised methods
+
+The general dataset should contain the majority of multi-omics related papers. For a more methodology related filtering we tried to differ between supervised and unsupervised methods. Therefore we added additional filter criteria in the efilter section of the command below for supervised methods. We added the word supervised into this section as it searches for the word supervised in abstracts and titles of publications.
+
+```{bash filtering for supervised in entrez search, eval=FALSE}
+# This run gives you a filtered list for supervised approaches in literature in english and provides Pubmed IDs 
+esearch -db pubmed -query "((multi AND omics) OR multi-omics OR multiomics OR (multivariate AND genomic) OR (Algorithms AND integrative AND Cluster AND Analysis)) AND data AND integration" | efilter -query "english [LANG] AND supervised" | efetch  
+```
+
+
+## Filtering for Unsupervised methods
+
+In order to filter for unsupervised multi-omics data integration related papers we added some further words as unsupervised, cluster, factor analysis and exclude supervised in the efilter option of the command below. 
+
+```{bash filtering for unsupervised in entrez search, eval=FALSE}
+# This run gives you a filtered list for unsupervised approaches in literature in english and provides Pubmed IDs 
+esearch -db pubmed -query "((multi AND omics) OR multi-omics OR multiomics OR (multivariate AND genomic) OR (Algorithms AND integrative AND Cluster AND Analysis)) AND data AND integration" | efilter -query " english [LANG] AND (unsupervised OR cluster OR (Factor AND Analysis) NOT supervised)" | efetch 
+```
+
+
+## Filtering for Reviews
+
+In addition, we searched for multi-omics data integration related reviews in order to get an overview of review articles in the field of interest. We searched for the publication type review and the word review as it may occur in abstracts or titles of publications.
+
+```{bash filtering for reviews on entrez search, eval=FALSE}
+# This run gives you a filtered list for reviews in literature in english and provides Pubmed IDs 
+esearch -db pubmed -query "((multi AND omics) OR multi-omics OR multiomics OR (multivariate AND genomic) OR (Algorithms AND integrative AND Cluster AND Analysis)) AND data AND integration" | efilter -query "english [LANG] AND (review [PTYP] OR review)" | efetch  
+```
+
+
+## Filtering for Tools
+
+In order to get an idea of how many papers are prior dealing with tools for multi-omics data integration we added filtering criteria like tool development or methodology comparison. In addition we added the words tool, application, algorithm, and method to the filtering criteria.
+
+```{bash filtering for tools on entrez search, eval=FALSE}
+# This run gives you a filtered list for tools in literature in english and provides Pubmed IDs 
+esearch -db pubmed -query "((multi AND omics) OR multi-omics OR multiomics OR (multivariate AND genomic) OR (Algorithms AND integrative AND Cluster AND Analysis)) AND data AND integration" | efilter -query "english [LANG] AND (Tool OR Application OR Algorithm OR method)" | efetch 
+```
+
+
+## Filtering for Cancer usage
+
+As our main field of research is dealing with cancer we also would like to know how many of the searched papers are also dealing with cancer, so we added human and cancer as a MESH term and also cancer as a word for paper selection.
+
+```{bash filtering for cancer on entrez search, eval=FALSE}
+# This run gives you a filtered list concerning cancer in literature in english and provides Pubmed IDs 
+esearch -db pubmed -query "((multi AND omics) OR multi-omics OR multiomics OR (multivariate AND genomic) OR (Algorithms AND integrative AND Cluster AND Analysis)) AND data AND integration" | efilter -query " english [LANG] AND ((humans [MESH] AND cancer [MESH]) OR cancer)" | efetch 
+```
+
+
