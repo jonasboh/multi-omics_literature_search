@@ -1,4 +1,4 @@
-# multi-omics_literature_search
+# Multi omics literature search
 
 This repository contains systematic terminal literature search strategies for multi-omics data integration on PubMed using Entrez Direct (EDirect).
 Description of the programm is avaialable in the NCBI Help Manual for Entrez Programming Utilities (https://www.ncbi.nlm.nih.gov/books/NBK179288/).
