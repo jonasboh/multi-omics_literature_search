@@ -4,7 +4,7 @@ This repository contains systematic terminal literature search strategies for mu
 Description of the programm is avaialable in the NCBI Help Manual for Entrez Programming Utilities [[1]](#1).
 
 This repository is a part of our review "A Detailed Catalogue of Multi-Omics Methodologies for Identification of Putative Biomarkers and 
-Causal Molecular Networks in Translational Cancer Research".
+Causal Molecular Networks in Translational Cancer Research" (https://doi.org/10.3390/ijms22062822).
 
 ## References
 
